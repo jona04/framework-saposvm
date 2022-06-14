@@ -1,0 +1,46 @@
+## Core latex/pdflatex auxiliary files:
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+*.tex 
+
+*.gz
+
+## Generated if empty string is given at "Please type another file name for output:"
+*.pdf
+
+# feynmf/feynmp
+*.mf
+*.mp
+*.t[1-9]
+*.t[1-9][0-9]
+*.tfm
+
+# pythontex
+*.pytxcode
+pythontex-files-*/
+
+# xypic precompiled matrices and outlines
+*.xyc
+*.xyd
+
+# endfloat
+*.ttt
+*.fff
+
+# gummi
+.*.swp
+
+# KBibTeX
+*~[0-9]*
+
+*.txt
