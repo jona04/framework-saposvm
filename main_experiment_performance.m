@@ -30,7 +30,7 @@ for s=1:length(sets)
         sigma = sigma_b(i);
 
         Rt = []; Ra = []; Rk = [];
-        sementes = 50;
+        sementes = 30;
         for k=1:sementes
             
             [X,y,X_test,train_data,train_label,test_data,test_label] = tansform_data(label, instances);
@@ -52,32 +52,28 @@ for s=1:length(sets)
             
             eps = 10^(-4);
 
-            %% MPF
+            %% SP-MPF
             tic;
-            [xpf,kpf] = app_v1_mpf(n,A,a,b,c,l,u,eps);
-            tpf = toc;
-            apf = calculate_accuracy(xpf,X,y,sigma,X_test,test_label);
+            [xpf,kpf] = app_sp_mpf(n,A,a,b,c,l,u,eps);
+            tsppf = toc;
             %%
 
-            %% Secant
+            %% SP-Secant
             tic;
-            [xsc,ksc] = app_v1_sec(n,A,a,b,c,l,u,eps);
-            tsc = toc;
-            asc = calculate_accuracy(xsc,X,y,sigma,X_test,test_label);
+            [xsc,ksc] = app_sp_sec(n,A,a,b,c,l,u,eps);
+            tspsc = toc;
             %%
 
-            %% Regula falsi
+            %% SP-Regula falsi
             tic;
-            [xrf,krf] = app_v1_rf(n,A,a,b,c,l,u,eps);
-            trf = toc;
-            arf = calculate_accuracy(xrf,X,y,sigma,X_test,test_label);
+            [xrf,krf] = app_sp_rf(n,A,a,b,c,l,u,eps);
+            tsprf = toc;
             %%
 
-            %% Bisection
+            %% SP-Bisection
             tic;
-            [xbs,kbs] = app_v1_bis(n,A,a,b,c,l,u,eps);
-            tbs = toc;
-            abis = calculate_accuracy(xbs,X,y,sigma,X_test,test_label);
+            [xbs,kbs] = app_sp_bis(n,A,a,b,c,l,u,eps);
+            tspbs = toc;
             %%
 
             %% LS-SVM
@@ -85,19 +81,64 @@ for s=1:length(sets)
             supportVectorLabels = y;
             tic;
             [bias,alphas] = lssvm_train(K,y, gamma);
-            tlib = toc;klb = 1;
-            alb = calculate_accuracy_lssvm(test_data,test_label, supportVectors,supportVectorLabels, sigma,alphas,bias);
+            tlib = toc;
+            %%
+            
+            %% QC-MPF
+            tic;
+            [xpf,kpf] = app_qc_mpf(n,A,a,b,c,l,u,eps);
+            tqcpf = toc;
             %%
 
-            Rt = [Rt;tpf tsc trf tbs tlib];
-            Ra = [Ra;apf asc arf abis alb];
-            Rk = [Rk;kpf ksc krf kbs klb];
+            %% QC-Secant
+            tic;
+            [xsc,ksc] = app_qc_sec(n,A,a,b,c,l,u,eps);
+            tqcsc = toc;
+            %%
+
+            %% QC-Regula falsi
+            tic;
+            [xrf,krf] = app_qc_rf(n,A,a,b,c,l,u,eps);
+            tqcrf = toc;
+            %%
+
+            %% QN-Bisection
+            tic;
+            [xbs,kbs] = app_qc_bis(n,A,a,b,c,l,u,eps);
+            tqcbs = toc;
+            %%
+
+            %% QN-MPF
+            tic;
+            [xpf,kpf] = app_qn_mpf(n,A,a,b,c,l,u,eps);
+            tqnpf = toc;
+            %%
+
+            %% QN-Secant
+            tic;
+            [xsc,ksc] = app_qn_sec(n,A,a,b,c,l,u,eps);
+            tqnsc = toc;
+            %%
+
+            %% QN-Regula falsi
+            tic;
+            [xrf,krf] = app_qn_rf(n,A,a,b,c,l,u,eps);
+            tqnrf = toc;
+            %%
+
+            %% QN-Bisection
+            tic;
+            [xbs,kbs] = app_qn_bis(n,A,a,b,c,l,u,eps);
+            tqnbs = toc;
+            %%
+
+            Rt = [Rt;tsppf tspsc tsprf tspbs tlib tqcpf tqcsc tqcrf tqcbs tqnpf tqnsc tqnrf tqnbs];
             
             % if it is the first iteration
             if s==1 && i==1 && k==1
-                list = [tpf,tsc,trf, tbs, tlib];
+                list = [tsppf tspsc tsprf tspbs tlib tqcpf tqcsc tqcrf tqcbs tqnpf tqnsc tqnrf tqnbs];
             else
-                list = vertcat( list,[tpf,tsc,trf, tbs, tlib] );
+                list = vertcat( list,[tsppf tspsc tsprf tspbs tlib tqcpf tqcsc tqcrf tqcbs tqnpf tqnsc tqnrf tqnbs] );
             end
 
         end
@@ -105,25 +146,7 @@ for s=1:length(sets)
         %%
         disp('A comparison with different methods - mean values');
         disp(['Dataset = ',+dataname,+',   C = ',+num2str(C),+',    Sigma = ',+num2str(sigma),+'    n = ',+num2str(n)]);
-        disp('Alg   It.      Time            Accuracy');
-        disp('------------------------------------------------------------');
-        disp(['PF',+'  | ', +num2str(mean(Rk(:,1))),+'  | ',+num2str(mean(Rt(:,1))),+' | ',+num2str(mean(Ra(:,1)))]);
-        disp(['SC',+'  | ', +num2str(mean(Rk(:,2))),+'  | ',+num2str(mean(Rt(:,2))),+' | ',+num2str(mean(Ra(:,2)))]);
-        disp(['RF',+'  | ', +num2str(mean(Rk(:,3))),+'  | ',+num2str(mean(Rt(:,3))),+'  | ',+num2str(mean(Ra(:,3)))]);
-        disp(['BS',+'  | ', +num2str(mean(Rk(:,4))),+'  | ',+num2str(mean(Rt(:,4))),+'  | ',+num2str(mean(Ra(:,4)))]);
-        disp('----');
-        disp(['LSSVM ',+' | ', +num2str(mean(Rk(:,5))),+'    | ',+num2str(mean(Rt(:,5))),+'  | ',+num2str(mean(Ra(:,5)))]);
-
     end
 end
 
-disp('------------------------------------------------------------');
-disp('PF = Fixed point');
-disp('SC = Secant');
-disp('RF = Regula falsi');
-disp('BS = Bisection');
-disp('----');
-disp('LSSVM = Least Square SVM');
-disp('------------------------------------------------------------');
-
-writematrix(list,'results/result_all.txt');
+writematrix(list,'results/result_performance_sp.txt');

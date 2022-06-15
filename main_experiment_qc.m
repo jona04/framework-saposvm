@@ -2,6 +2,8 @@ clc;
 clear;
 close all;
 
+addpath("code/");
+
 list_medians = [];
 
 sigmas=[

@@ -1,7 +1,6 @@
-function [t,f1,f2,f3,f4,f5,f6,f7,f8,f9,f10] = plot_performance(R,np,ns)
+function [t,f1,f2,f3,f4,f5,f6,f7,f8,f9] = plot_performance(R,np,ns)
 c = R'; %% Transfer results;
-% np = 50; % number of problems;
-% ns = 4;  % number of schemes 
+
 clf();
 cmin = zeros(1,ns);
 
@@ -26,7 +25,7 @@ for s=1:ns
 end
 
 %
-% Discretizando t para calcular f(s,t)
+% Discretize t to calculating f(s,t)
 %
 tmax = max(max(R))+1; 
 tmin = 1;
@@ -42,15 +41,10 @@ for j=1:length(t)
    f7(j)=(length(find(R(7,:)<=t(j))))/np;
    f8(j)=(length(find(R(8,:)<=t(j))))/np;
    f9(j)=(length(find(R(9,:)<=t(j))))/np;
-   f10(j)=(length(find(R(10,:)<=t(j))))/np;
+%    f10(j)=(length(find(R(10,:)<=t(j))))/np;
 %    f11(j)=(length(find(R(11,:)<=t(j))))/np;
 %    f12(j)=(length(find(R(12,:)<=t(j))))/np;
 %    f13(j)=(length(find(R(13,:)<=t(j))))/np;
 end
-
-
-% plot(t,f1,'b',t,f2,'m',t,f3,'k',t,f4,'g',linewidth=2);
-% hold on;
-% legend('Libsvm', 'Quadprog', 'SQSD-MPF', 'SQSD-MFV');
 
 end
