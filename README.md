@@ -30,7 +30,7 @@ If you run into problems please do not hesitate to  contact me:
 
 Obs: run the  file run_results.py only after generate the .txt files using main_experiment_qc.m, main_experiment_qn.m and main_experiment_sp.m
 
-* summirizy.py : Code in Python with scripts used to generate the .tex file
+* summarizy.py : Code in Python with scripts used to generate the .tex file
 
 
 ## Generating table results
