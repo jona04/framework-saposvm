@@ -1,6 +1,6 @@
 This directory contains all the code implementing the Framework SapoSVM as described in the manuscript
 
- * A. Alves, J.O.L. Silva, L.C. Matioli, P.S.M. Santos, S.S. Souza. "A new framework for training
+ * A. Alves, J.O.L. Silva, L.C. Matioli, P.S.M. Santos. "A new framework for training
  Support Vector Machines".
 
 
