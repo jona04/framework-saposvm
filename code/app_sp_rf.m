@@ -1,8 +1,13 @@
-function [xda, kda] = app_v1_rf(n,A,a,b,c,l,u,eps)
-xkant = (1/n)*ones(n,1);
-xk = ones(n,1); xk(n) = c/2;xk(1) = c/2;
-[pk,ak] = app_sp(n,xkant,xk,A,a);
+function [xda, kda] = app_sp_rf(n,A,a,b,c,l,u,eps)
+xk = zeros(n,1);
+[pk,ak] = app_sp(n,[],xk,A,a,true);
 L0 = (((ak./pk)'*b) - c)/((b./pk)'*b);
+
+[Lfp,xfp,kfp] = fixedpoint_solver(L0,pk,ak,b,c,l,u,eps);
+xkant = xk;
+xk = xfp;
+[pk,ak] = app_sp(n,xkant,xk,A,a,false); 
+L0 = Lfp;
 for k=1:1000
     [Lfp,xfp,kfp] = regula_falsi_solver(pk,ak,b,c,l,u,eps);
     if abs(Lfp - L0) < eps
@@ -11,7 +16,7 @@ for k=1:1000
     L0 = Lfp;
     xkant = xk;
     xk = xfp;
-    [pk,ak] = app_sp(n,xkant,xk,A,a); 
+    [pk,ak] = app_sp(n,xkant,xk,A,a,false); 
 end
 xda = xk;
 kda = k;
