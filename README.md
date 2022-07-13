@@ -33,7 +33,7 @@ Obs: run the  file run_results.py only after generate the .txt files using main_
 
 ## Generating table results
 
-To generate Tables 7, 8 and 9 presented in the paper please follow the steps below:
+To generate Tables 5, 6 and 7 presented in the paper please follow the steps below:
 
 1 - Open the Matlab and run the files:
     main_experiment_qn.m, main_experiment_qc.m and main_experiment_sp.m. After it three .txt files will be generated. The process can during some minutes.
