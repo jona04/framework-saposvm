@@ -20,8 +20,6 @@ If you run into problems please do not hesitate to  contact me:
 
 *  main_experiment_qc.m : Run this to generate inside of the folder results/ the txt file responsible to generate the experiments using the quasi-Couchy approximation in step 1 of the framework
 
-*  main_experiment_qn.m : Run this to generate inside of the folder results/ the txt file responsible to generate the experiments using the quasi-Newton approximation in step 1 of the framework
-
 *  main_experiment_sp.m : Run this to generate inside of the folder results/ the txt file responsible to generate the experiments using the spherical approximation in step 1 of the framework
 
 *  plot_main_performance.m.m : Run this to plot the profile performance according to the txt file in results/ folder
