@@ -4,13 +4,13 @@ close all;
 
 result = readmatrix('./results/result_performance.txt');
 
-np = 30; % number of problems;
+np = 50; % number of problems;
 ns = 9;  % number of schemes 
 
 %% Generating the performance profile C=1
 R = zeros(ns,np);
 it=1;
-for i=1:30
+for i=1:50
     linha = result(i,:);
     R(1,it) = linha(1);      %es-pf
     R(2,it) = linha(2);      %es-sc
@@ -29,7 +29,7 @@ R = R';
 %% Generating the performance profile C=100
 R = zeros(ns,np);
 it=1;
-for i=31:60
+for i=51:100
     linha = result(i,:);
     R(1,it) = linha(1);      %es-pf
     R(2,it) = linha(2);      %es-sc
@@ -48,7 +48,7 @@ R = R';
 %% Generating the performance profile C=1000
 R = zeros(ns,np);
 it=1;
-for i=61:90
+for i=101:150
     linha = result(i,:);
     R(1,it) = linha(1);      %es-pf
     R(2,it) = linha(2);      %es-sc

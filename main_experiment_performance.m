@@ -30,7 +30,7 @@ for s=1:length(sets)
         sigma = sigma_b(i);
 
         Rt = []; Ra = []; Rk = [];
-        sementes = 30;
+        sementes = 50;
         for k=1:sementes
             
             [X,y,X_test,train_data,train_label,test_data,test_label] = tansform_data(label, instances);
@@ -102,43 +102,20 @@ for s=1:length(sets)
             tqcrf = toc;
             %%
 
-            %% QN-Bisection
+            %% QC-Bisection
             tic;
             [xbs,kbs] = app_qc_bis(n,A,a,b,c,l,u,eps);
             tqcbs = toc;
             %%
 
-            %% QN-MPF
-            tic;
-            [xpf,kpf] = app_qn_mpf(n,A,a,b,c,l,u,eps);
-            tqnpf = toc;
-            %%
-
-            %% QN-Secant
-            tic;
-            [xsc,ksc] = app_qn_sec(n,A,a,b,c,l,u,eps);
-            tqnsc = toc;
-            %%
-
-            %% QN-Regula falsi
-            tic;
-            [xrf,krf] = app_qn_rf(n,A,a,b,c,l,u,eps);
-            tqnrf = toc;
-            %%
-
-            %% QN-Bisection
-            tic;
-            [xbs,kbs] = app_qn_bis(n,A,a,b,c,l,u,eps);
-            tqnbs = toc;
-            %%
-
-            Rt = [Rt;tsppf tspsc tsprf tspbs tlib tqcpf tqcsc tqcrf tqcbs tqnpf tqnsc tqnrf tqnbs];
+            
+            Rt = [Rt;tsppf tspsc tsprf tspbs tlib tqcpf tqcsc tqcrf tqcbs];
             
             % if it is the first iteration
             if s==1 && i==1 && k==1
-                list = [tsppf tspsc tsprf tspbs tlib tqcpf tqcsc tqcrf tqcbs tqnpf tqnsc tqnrf tqnbs];
+                list = [tsppf tspsc tsprf tspbs tlib tqcpf tqcsc tqcrf tqcbs];
             else
-                list = vertcat( list,[tsppf tspsc tsprf tspbs tlib tqcpf tqcsc tqcrf tqcbs tqnpf tqnsc tqnrf tqnbs] );
+                list = vertcat( list,[tsppf tspsc tsprf tspbs tlib tqcpf tqcsc tqcrf tqcbs] );
             end
 
         end
@@ -149,4 +126,4 @@ for s=1:length(sets)
     end
 end
 
-writematrix(list,'results/result_performance_sp.txt');
+writematrix(list,'results/result_performance.txt');

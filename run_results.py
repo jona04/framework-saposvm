@@ -6,7 +6,9 @@ import os
 
 # Set of tests types and sizes
 results_dir = 'results/'
-tests_medians = ["result_medians_sp.txt","result_medians_qc.txt"]
+tests_medians = {"result_medians_sp.txt":"Spherical approximation",
+                    "result_medians_qc.txt":"quasi-Couchy approximation"}
+acronym = {"result_medians_sp.txt":"Sp", "result_medians_qc.txt":"Qc"}
 c=[1,100,1000]
 bases = ['mnist','heart','australian','german numer','fourclas', 'ionosphere','sonar','splice']
 sigmas=[

@@ -8,7 +8,7 @@ Sbl = 0; Sbu = 0; Sbap = 0; Sbbp = 0;
 % xL = xb;
 
 for j=1:n
-%     xb = ( a(j) - lambda*b(j) ) / p(j);
+%     xb(j) = ( a(j) - lambda*b(j) ) / p(j);
 
     if xb(j) <= l(j)
         Sbl = Sbl + b(j)*l(j);
